@@ -34,8 +34,11 @@ const Register = () => {
     e.preventDefault();
 
     try {
+      // Construir la URL completa usando la variable de entorno
+      const apiUrl = `${process.env.REACT_APP_API_URL}/register-client`;
+
       // Enviar los datos de registro al backend
-      const response = await axios.post("http://localhost:5000/register", formData);
+      const response = await axios.post(apiUrl, formData);
 
       // Mostrar mensaje de éxito
       setSnackbarMessage(response.data.message);
@@ -47,8 +50,13 @@ const Register = () => {
         navigate("/client-dashboard");
       }, 3000);
     } catch (error) {
-      console.error("Error al registrar usuario:", error.response?.data?.error || error.message);
-      setSnackbarMessage("Error al registrar usuario. Por favor, intenta de nuevo.");
+      console.error(
+        "Error al registrar usuario:",
+        error.response?.data?.error || error.message
+      );
+      setSnackbarMessage(
+        "Error al registrar usuario. Por favor, intenta de nuevo."
+      );
       setSnackbarSeverity("error");
       setOpenSnackbar(true);
     }

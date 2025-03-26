@@ -38,8 +38,11 @@ const Chatbot = () => {
       const userMessage = { sender: "user", text: message };
       setResponses((prev) => [...prev, userMessage]);
 
+      // Construir la URL usando la variable de entorno
+      const apiUrl = `${process.env.REACT_APP_API_URL}/chatbot`;
+
       // Enviar el mensaje al backend
-      const response = await axios.post("http://localhost:5000/chatbot", {
+      const response = await axios.post(apiUrl, {
         sessionId,
         message,
       });
